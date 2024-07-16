@@ -17,7 +17,15 @@ class Program
         string randomid = (10000 + random.Next(10000)).ToString() + (10000 + random.Next(10000)).ToString();
 
         string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.vrcw", SearchOption.AllDirectories);
-        string path = files.FirstOrDefault();
+
+        // Display the files and let the user select one
+        for (int i = 0; i < files.Length; i++)
+            Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}");
+        
+        Console.Write("Select a file by entering its number (leave blank = 1): ");
+        string fileInput = Console.ReadLine();
+        int selectedIndex = string.IsNullOrEmpty(fileInput) ? 0 : int.Parse(fileInput) - 1;
+        string path = files[selectedIndex];
 
         Console.Write("Amount of Instances to Create (leave blank = 1): ");
         string input = Console.ReadLine();
