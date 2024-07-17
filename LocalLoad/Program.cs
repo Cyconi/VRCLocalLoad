@@ -43,20 +43,13 @@ class Program
         int selectedIndex = string.IsNullOrEmpty(fileInput) || int.Parse(fileInput) == 0 ? 0 : int.Parse(fileInput) - 1;
         string path = files[selectedIndex];
 
-        Console.Write("Amount of Instances to Create (leave blank = 1): ");
-        string input = Console.ReadLine();
-        int clientCount = string.IsNullOrEmpty(input) ? 1 : int.Parse(input);
-
-        for (int i = 0; i < clientCount; i++)
+        ProcessStartInfo startInfo = new ProcessStartInfo
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = Path.Combine(Environment.CurrentDirectory, "VRChat.exe"),
-                Arguments = $"--url=create?roomId={randomid}&hidden=true&name=BuildAndRun&url=file:///{path} --enable-debug-gui --enable-sdk-log-levels --enable-udon-debug-logging --no-vr --watch-worlds",
-                WorkingDirectory = Environment.CurrentDirectory
-            };
-            Process.Start(startInfo);
-        }
+            FileName = Path.Combine(Environment.CurrentDirectory, "VRChat.exe"),
+            Arguments = $"--url=create?roomId={randomid}&hidden=true&name=BuildAndRun&url=file:///{path} --enable-debug-gui --enable-sdk-log-levels --enable-udon-debug-logging --no-vr --watch-worlds",
+            WorkingDirectory = Environment.CurrentDirectory
+        };
+        Process.Start(startInfo);
     }
 }
 
